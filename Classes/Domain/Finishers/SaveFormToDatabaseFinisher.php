@@ -127,7 +127,7 @@ class SaveFormToDatabaseFinisher extends AbstractFinisher
         // Goes trough all form-pages - and there trough all PageElements (Questions)
         foreach ($this->finisherContext->getFormRuntime()->getPages() as $page) {
             foreach ($page->getElementsRecursively() as $pageElem) {
-                if ($pageElem->getType() !== 'Honeypot') {
+                if (!in_array($pageElem->getType(), ['Honeypot', 'Friendlycaptcha', 'Hcaptcha'], true)) {
                     if ($pageElem->getType() !== 'FileUpload' && $pageElem->getType() !== 'ImageUpload') {
                         if (is_array($valuesWithPages[$pageElem->getIdentifier()])) {
                             $values[$pageElem->getIdentifier()]['value'] = htmlspecialchars(implode(', ', $valuesWithPages[$pageElem->getIdentifier()]));
